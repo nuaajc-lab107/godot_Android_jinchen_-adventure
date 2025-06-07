@@ -1,0 +1,2 @@
+# godot_Android_jinchen_-adventure
+这是使用godot游戏引擎制作的金城冒险的小样
