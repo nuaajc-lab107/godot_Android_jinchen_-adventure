@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://b06yqu1vesx2o"]
+
+[ext_resource type="Texture2D" uid="uid://x4i1pvov50v6" path="res://sucai/slime_green.png" id="1_3p5mn"]
+[ext_resource type="PackedScene" uid="uid://32q30snxi0cd" path="res://snce/death.tscn" id="1_evj4j"]
+[ext_resource type="Script" path="res://scp/diren.gd" id="1_t0cpv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brt5g"]
+atlas = ExtResource("1_3p5mn")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjhsj"]
+atlas = ExtResource("1_3p5mn")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7f2e"]
+atlas = ExtResource("1_3p5mn")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_merab"]
+atlas = ExtResource("1_3p5mn")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i2m5x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brt5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjhsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7f2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_merab")
+}],
+"loop": true,
+"name": &"huo",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_66ufw"]
+size = Vector2(10, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pft1h"]
+size = Vector2(10, 12)
+
+[node name="enmeny" type="Node2D"]
+script = ExtResource("1_t0cpv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_i2m5x")
+animation = &"huo"
+autoplay = "huo"
+frame_progress = 0.326336
+
+[node name="bar" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="shapebar" type="CollisionShape2D" parent="bar"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_66ufw")
+debug_color = Color(0.950272, 3.08037e-06, 0.569413, 0.42)
+
+[node name="Area2D" parent="." instance=ExtResource("1_evj4j")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_pft1h")
+
+[node name="light" type="RayCast2D" parent="."]
+position = Vector2(0, 8)
+target_position = Vector2(-8, 0)
+
+[node name="right" type="RayCast2D" parent="."]
+position = Vector2(0, 8)
+target_position = Vector2(8, 0)
+
+[connection signal="area_entered" from="bar" to="." method="_on_bar_area_entered"]
